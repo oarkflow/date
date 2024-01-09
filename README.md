@@ -1,15 +1,29 @@
 Go Date Parser 
 ---------------------------
+[![GoDoc](https://godoc.org/github.com/itlightning/dateparse?status.svg)](http://godoc.org/github.com/itlightning/dateparse)
+![Test Status](https://github.com/itlightning/dateparse/actions/workflows/test.yaml/badge.svg)
+[![Go ReportCard](https://goreportcard.com/badge/itlightning/dateparse)](https://goreportcard.com/report/itlightning/dateparse)
 
-Parse many date strings without knowing format in advance. Validates comprehensively to avoid false positives.  Uses a scanner to read bytes with a state machine to find format.  Much faster than shotgun based parse methods.  See [bench_test.go](https://github.com/araddon/dateparse/blob/master/bench_test.go) for performance comparison. See the critical note below about timezones.
+Parse date/time strings without knowing the format in advance. Supports 100+ formats. Validates comprehensively to avoid false positives.  Very fast (~single-pass state-machine based approach).  See [bench_test.go](https://github.com/itlightning/dateparse/blob/main/bench_test.go) for performance comparison. See the critical note below about timezones.
+
+⚡ Maintained by [IT Lightning](https://itlightning.com/), a cloud-first logging platform that's uniquely powerful, super-easy (schemaless, point-and-shoot ingestion), and affordable. It automatically extracts and classifies structured data out of your unstructured log messages. Enjoy visual pattern-analysis and robust SQL-like search. It's unique architecture means you can log more and pay less. Check it out and give us feedback! ⚡
+
+🐛💡 Find a bug or have an idea with this package? [Issues](https://github.com/itlightning/dateparse/issues) and pull requests are welcome.
 
 
-[![Code Coverage](https://codecov.io/gh/araddon/dateparse/branch/master/graph/badge.svg)](https://codecov.io/gh/araddon/dateparse)
-[![GoDoc](https://godoc.org/github.com/araddon/dateparse?status.svg)](http://godoc.org/github.com/araddon/dateparse)
-[![Build Status](https://travis-ci.org/araddon/dateparse.svg?branch=master)](https://travis-ci.org/araddon/dateparse)
-[![Go ReportCard](https://goreportcard.com/badge/araddon/dateparse)](https://goreportcard.com/report/araddon/dateparse)
+History and Contributors
+----------------------------------
 
-**MM/DD/YYYY VS DD/MM/YYYY** Right now this uses mm/dd/yyyy WHEN ambiguous if this is not desired behavior, use `ParseStrict` which will fail on ambiguous date strings. This can be adjusted using the `PreferMonthFirst` parser option. Some ambiguous formats can fail (e.g., trying to parse 31/03/2023 as the default month-first format `MM/DD/YYYY`), but can be automatically retried with `RetryAmbiguousDateWithSwap`.
+This is an actively maintained fork of the excellent [original dateparse package](https://github.com/araddon/dateparse) by [@araddon](https://github.com/araddon).
+This fork [incorporates](https://github.com/araddon/dateparse/pull/159) many bugfixes from the community, and adds comprehensive validation and extensive performance optimizations.
+A special thanks to [@araddon](https://github.com/araddon), other contributors to the original project, as well as those who contributed fixes that got incorporated into this version:
+[@arran4](https://github.com/arran4), [@bizy01](https://github.com/bizy01), [@BrianLeishman](https://github.com/BrianLeishman), [@dferstay](https://github.com/dferstay), [@jiangxin](https://github.com/jiangxin), [@jmdacruz](https://github.com/jmdacruz), [@krhubert](https://github.com/krhubert), [@mehanizm](https://github.com/mehanizm), [@xwjdsh](https://github.com/xwjdsh), and [@zifengyu](https://github.com/zifengyu).
+
+
+Ambiguous Date Formats
+----------------------------------
+
+**MM/DD/YYYY VS DD/MM/YYYY** Right now this uses mm/dd/yyyy *when* ambiguous. If this is not desired behavior, use `ParseStrict` which will fail on ambiguous date strings. This behavior can be adjusted using the `PreferMonthFirst` parser option. Some ambiguous formats can fail (e.g., trying to parse 31/03/2023 as the default month-first format `MM/DD/YYYY`), but can be automatically retried with `RetryAmbiguousDateWithSwap`.
 
 ```go
 
@@ -21,13 +35,16 @@ t, err := dateparse.ParseStrict("3/1/2014")
 > returns error 
 
 // Return a string that represents the layout to parse the given date-time.
-// For certain highly complex date formats, ParseFormat may not be accurate,
-// even if ParseAny is able to correctly parse it (e.g., anything that starts
-// with a weekday).
+// For certain highly complex date formats, ParseFormat's return value may
+// not be accurate (if this is the case, the returned format string will be a
+// different length, than the input). In these cases, ParseAny will still be
+// able to successfully parse the format, but this return value will fail to
+// parse. For example, anything that starts with a full weekday will fail.
 layout, err := dateparse.ParseFormat("May 8, 2009 5:57:51 PM")
 > "Jan 2, 2006 3:04:05 PM"
 
 ```
+
 
 Performance Considerations
 ----------------------------------
@@ -42,7 +59,7 @@ option is off (default)).
 Timezone Considerations
 ----------------------------------
 
-**Timezones** The location your server is configured affects the results! See example or https://play.golang.org/p/IDHRalIyXh and last paragraph here https://golang.org/pkg/time/#Parse.
+The location that your server is configured to affects the results! See example or https://play.golang.org/p/IDHRalIyXh and last paragraph here https://golang.org/pkg/time/#Parse.
 
 Important points to understand:
 * If you are parsing a date string that does *not* reference a timezone, if you use `Parse` it will assume UTC, or for `ParseIn` it will use the specified location.
@@ -56,13 +73,13 @@ Important points to understand:
 cli tool for testing dateformats
 ----------------------------------
 
-[Date Parse CLI](https://github.com/araddon/dateparse/blob/master/dateparse)
+[Date Parse CLI](https://github.com/itlightning/dateparse/tree/main/dateparse)
 
 
 Extended example
 -------------------
 
-https://github.com/araddon/dateparse/blob/master/example/main.go
+https://github.com/itlightning/dateparse/blob/main/example/main.go
 
 ```go
 package main
