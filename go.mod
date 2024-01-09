@@ -1,4 +1,4 @@
-module github.com/araddon/dateparse
+module github.com/itlightning/dateparse
 
 go 1.20
 

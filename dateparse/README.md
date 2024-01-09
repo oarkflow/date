@@ -6,7 +6,7 @@ Simple CLI to test out dateparse.
 
 ```sh
 
-# Since this date string has no timezone/offset so is more effected by
+# Since this date string has no timezone/offset it's more affected by
 # which method you use to parse
 
 $ dateparse --timezone="America/Denver" "2017-07-19 03:21:00"

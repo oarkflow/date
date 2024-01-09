@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/araddon/dateparse"
+	"github.com/itlightning/dateparse"
 	"github.com/scylladb/termtables"
 )
 

@@ -18,16 +18,19 @@ checksum:
 snapshot:
   name_template: "{{ .Tag }}-next"
 changelog:
+  use: github-native
   sort: asc
   filters:
+    include:
+      - "^feat:"
     exclude:
       - '^docs:'
       - '^test:'
 nfpms:
   -
     vendor: dateparse
-    homepage: https://github.com/araddon/dateparse
-    maintainer: n/a <someone@eample.com>
+    homepage: https://github.com/itlightning/dateparse
+    maintainer: IT Lightning, LLC <opensource@itlightning.com>
     description: NA
     formats:
       - apk
