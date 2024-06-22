@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/itlightning/dateparse"
 	"github.com/scylladb/termtables"
 )
 

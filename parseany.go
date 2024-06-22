@@ -178,10 +178,10 @@ func bytesToString(b []byte) string {
 	}
 }
 
-// ParseAny parse an unknown date format, detect the layout.
+// Parse parse an unknown date format, detect the layout.
 // Normal parse.  Equivalent Timezone rules as time.Parse().
 // NOTE:  please see readme on mmdd vs ddmm ambiguous dates.
-func ParseAny(datestr string, opts ...ParserOption) (time.Time, error) {
+func Parse(datestr string, opts ...ParserOption) (time.Time, error) {
 	p, err := parseTime(datestr, nil, opts...)
 	defer putBackParser(p)
 	if err != nil {

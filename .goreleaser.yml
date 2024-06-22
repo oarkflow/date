@@ -29,7 +29,7 @@ changelog:
 nfpms:
   -
     vendor: dateparse
-    homepage: https://github.com/itlightning/dateparse
+    homepage: https://github.com/oarkflow/date
     maintainer: IT Lightning, LLC <opensource@itlightning.com>
     description: NA
     formats:
