@@ -15,7 +15,7 @@
 //
 // See README.md for key points on how timezone/location parsing
 // works in go, as this can be counterintuitive initially.
-package dateparse
+package date
 
 import (
 	"fmt"

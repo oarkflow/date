@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/scylladb/termtables"
+
+	"github.com/oarkflow/date"
 )
 
 var examples = []string{
@@ -243,7 +245,7 @@ func main() {
 
 	table.AddHeaders("Input", "Parsed, and Output as %v")
 	for _, dateExample := range examples {
-		t, err := dateparse.ParseLocal(dateExample)
+		t, err := date.ParseLocal(dateExample)
 		if err != nil {
 			panic(err.Error())
 		}

@@ -4,7 +4,10 @@ go 1.22.0
 
 replace github.com/oarkflow/date => ../
 
-require github.com/scylladb/termtables v1.0.0
+require (
+	github.com/oarkflow/date v0.0.0-00010101000000-000000000000
+	github.com/scylladb/termtables v1.0.0
+)
 
 require (
 	github.com/apcera/termtables v0.0.0-20170405184538-bcbc5dc54055 // indirect
