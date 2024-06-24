@@ -2423,7 +2423,7 @@ iterRunes:
 	switch p.stateDate {
 	case dateDigit:
 		// unixy timestamps ish
-		//  example              ct type
+		//  examples              ct type
 		//  1499979655583057426  19 nanoseconds
 		//  1499979795437000     16 micro-seconds
 		//  20180722105203       14 yyyyMMddhhmmss
