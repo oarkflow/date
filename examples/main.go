@@ -225,15 +225,15 @@ var examples = []string{
 
 var (
 	timezone = ""
+	demo     = "all"
 )
 
 func main() {
 	flag.StringVar(&timezone, "timezone", "UTC", "Timezone aka `America/Los_Angeles` formatted time-zone")
+	flag.StringVar(&demo, "demo", "all", "Demo to run: all, arithmetic, range, timezone, duration, calendar, format, timestamp, age, nepali, natural, parse-table")
 	flag.Parse()
 
 	if timezone != "" {
-		// NOTE:  This is very, very important to understand
-		// time-parsing in go
 		loc, err := time.LoadLocation(timezone)
 		if err != nil {
 			panic(err.Error())
@@ -241,6 +241,38 @@ func main() {
 		time.Local = loc
 	}
 
+	switch demo {
+	case "all":
+		RunAllDemos()
+	case "arithmetic":
+		DemoDateArithmetic()
+	case "range":
+		DemoDateRanges()
+	case "timezone":
+		DemoTimezoneServices()
+	case "duration":
+		DemoDurationUtilities()
+	case "calendar":
+		DemoCalendarServices()
+	case "format":
+		DemoFormattingAndLocalization()
+	case "timestamp":
+		DemoTimestampUtilities()
+	case "age":
+		DemoAgeAndLeapYears()
+	case "nepali":
+		DemoNepaliCalendar()
+	case "natural":
+		DemoNaturalDateParsing()
+	case "parse-table":
+		runParseTable()
+	default:
+		fmt.Printf("Unknown demo %q. Available demos:\n", demo)
+		fmt.Println("  all, arithmetic, range, timezone, duration, calendar, format, timestamp, age, nepali, natural, parse-table")
+	}
+}
+
+func runParseTable() {
 	table := termtables.CreateTable()
 
 	table.AddHeaders("Input", "Parsed, and Output as %v")

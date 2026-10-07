@@ -6,7 +6,7 @@ import (
 	"github.com/oarkflow/date"
 )
 
-func main() {
+func nptime() {
 	datetimeStr := "2079/10/14"
 	format := "%Y/%m/%d"
 

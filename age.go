@@ -105,3 +105,34 @@ func NextLeapYear(givenYear int) (foundYear int, found bool) {
 
 	return
 }
+
+// AgeDetailed returns the exact difference in years, months, and days between birthDate and targetDate.
+// If targetDate is before birthDate, they are swapped.
+func AgeDetailed(birthDate, targetDate time.Time) (years, months, days int) {
+	if targetDate.Before(birthDate) {
+		birthDate, targetDate = targetDate, birthDate
+	}
+	y1, m1, d1 := birthDate.Date()
+	y2, m2, d2 := targetDate.Date()
+
+	years = y2 - y1
+	months = int(m2) - int(m1)
+	days = d2 - d1
+
+	if days < 0 {
+		// Borrow days from previous month
+		prevMonth := time.Date(y2, m2, 0, 0, 0, 0, 0, targetDate.Location())
+		days += prevMonth.Day()
+		months--
+	}
+	if months < 0 {
+		months += 12
+		years--
+	}
+	return years, months, days
+}
+
+// AgeDetailedToNow returns the exact difference in years, months, and days between birthDate and now.
+func AgeDetailedToNow(birthDate time.Time) (years, months, days int) {
+	return AgeDetailed(birthDate, time.Now())
+}

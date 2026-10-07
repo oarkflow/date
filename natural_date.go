@@ -229,9 +229,13 @@ func TimeElapsed(now time.Time, then time.Time, full bool) string {
 }
 
 func BeginningOfMonth(date time.Time) time.Time {
-	return date.AddDate(0, 0, -date.Day()+1)
+	return StartOfMonth(date)
 }
 
-func EndOfMonth(date time.Time) time.Time {
-	return date.AddDate(0, 1, -date.Day())
+func BeginningOfWeek(date time.Time) time.Time {
+	return StartOfWeek(date)
+}
+
+func BeginningOfYear(date time.Time) time.Time {
+	return StartOfYear(date)
 }
